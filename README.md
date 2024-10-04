@@ -1,4 +1,4 @@
-# Advanced C2 - Documentation
+# PHA4N70M C2 v0.0.2pub - Documentation
 
 ## Table of Contents
 

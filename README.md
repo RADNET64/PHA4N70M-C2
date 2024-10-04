@@ -15,7 +15,6 @@
     - [Mirror Update](#mirror-update)
     - [Features: Screenshot Capture and Keylogger](#features-screenshot-capture-and-keylogger)
 6. [Evasion and Persistence](#evasion-and-persistence)
-7. [Security and Best Practices](#security-and-best-practices)
 
 ---
 
